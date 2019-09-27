@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+#tom is lame
 import requests
 
 website = "https://api.weather.gov/points/44.1333,-123.2144"
