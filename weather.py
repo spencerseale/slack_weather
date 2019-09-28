@@ -1,25 +1,24 @@
 #!/usr/bin/env python3
 
-#tom is lame
+#importing requests to use API
 import requests
 
+#API with Eugene, OR geographic coordinates
 website = "https://api.weather.gov/points/44.1333,-123.2144"
 
-data = requests.get(website)
+#Forcing json format
+weather_data = (requests.get(website)).json()
 
-#print(data)
-
-weather_data = data.json()
-
-#print(weather_data)
-
+#Moving to current forecast API from the initial coordinate API
 eugene_weather = (requests.get(weather_data['properties']['forecast'])).json()
 
-#print(eugene_weather)
+#These are less detailed weather descriptors
+# temp = (eugene_weather['properties']['periods'][0]['temperature'])
+# unit = (eugene_weather['properties']['periods'][0]['temperatureUnit'][0])
+# time_of_day = eugene_weather['properties']['periods'][0]['name']
 
-temp = (eugene_weather['properties']['periods'][0]['temperature'])
-unit = (eugene_weather['properties']['periods'][0]['temperatureUnit'][0])
+#This gives a nice detailed summation
+detailed_forecast = eugene_weather['properties']['periods'][0]['detailedForecast']
 
-print(temp)
-
-print(f"The current temperature is {temp}{unit}.")
+#std out giving forecast
+print(f"The current forecast for Eugene, OR is: {detailed_forecast}")
